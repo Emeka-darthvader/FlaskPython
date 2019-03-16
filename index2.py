@@ -1,5 +1,11 @@
-from flask import Flask,jsonify, request
+from flask import Flask, request
+from flask_restful import Resource, Api
+import requests
+import json 
+
 app = Flask(__name__)
+api = Api(app)
+
 def getArriaContent():
     null = None
     url = 'https://app.studio.arria.com:443/alite_content_generation_webapp/text/v3g3XPEvkxw'
@@ -18,14 +24,19 @@ def getArriaContent():
     return result
 
 
-@app.route('/',methods=['GET','POST'])
-def index():
-    if (request.method == 'POST'):
-        some_json = request.get_json()
-        return jsonify({'you sent' : some_json}),201
-    else:
+class GetArriaText(Resource):
+    def get(self):
         resultant = getArriaContent()
         return {'ArriaText': resultant}
-@app.route('/multi/<int:num>',methods=['GET'])
-def get_multiply10(num):
-    return jsonify({'result': num*20})
+
+    def post(self):
+        some_json = request.get_json()
+        return {'you sent':some_json},201
+class Multi(Resource):
+    def get(self, num):
+        return {'result' : num*10}
+api.add_resource(GetArriaText,'/')        
+api.add_resource(Multi,'/multi/<int:num>')
+
+if __name__ == '__main__':
+    app.run(debug=True)
