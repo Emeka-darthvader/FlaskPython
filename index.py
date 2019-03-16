@@ -1,8 +1,10 @@
 from flask import Flask,jsonify, request
+from flask_cors import CORS
 import json
 import requests 
 
 app = Flask(__name__)
+CORS(app)
 def getArriaContent():
     null = None
     url = 'https://app.studio.arria.com:443/alite_content_generation_webapp/text/v3g3XPEvkxw'
