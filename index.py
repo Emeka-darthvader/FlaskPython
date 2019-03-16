@@ -28,7 +28,10 @@ def index():
         return jsonify({'you sent' : some_json}),201
     else:
         resultant = getArriaContent()
-        return {'ArriaText': resultant}
+        return jsonify({'ArriaText': resultant})
 @app.route('/multi/<int:num>',methods=['GET'])
 def get_multiply10(num):
     return jsonify({'result': num*20})
+
+# if __name__ == '__main__':
+#     app.run(debug=True)
