@@ -1,10 +1,28 @@
 from flask import Flask,jsonify, request
 from flask_cors import CORS
 import json
-import requests 
+import pandas as pd
+from pandas_datareader import data as pdr
+import numpy as np
+import datetime
+import requests
+import fix_yahoo_finance as yf
+
+yf.pdr_override()
+
+
 
 app = Flask(__name__)
 CORS(app)
+
+def getVisualizations():
+    data = pdr.get_data_yahoo("SPY", start="2018-09-12", end="2019-03-16")
+
+    #print(data)
+    #df.iloc[:, [True, False, True, False]]
+    VizInput = data['Adj Close'][0]
+    return VizInput
+
 def getArriaContent():
     null = None
     url = 'https://app.studio.arria.com:443/alite_content_generation_webapp/text/v3g3XPEvkxw'
@@ -31,6 +49,13 @@ def index():
     else:
         resultant = getArriaContent()
         return jsonify({'ArriaText': resultant})
+
+@app.route('/getViz',methods=['GET'])
+def index():
+    if (request.method == 'GET'):
+        VizData = getVisualizations()
+        return jsonify({'ViZValues': VizData})
+
 @app.route('/multi/<int:num>',methods=['GET'])
 def get_multiply10(num):
     return jsonify({'result': num*20})
