@@ -16,15 +16,17 @@ app = Flask(__name__)
 CORS(app)
 
 def getVisualizations():
+    
     allViz = []
     data = pdr.get_data_yahoo("SPY", start="2018-09-12", end="2019-03-16")
-    
+
     #print(data)
     #df.iloc[:, [True, False, True, False]]
-    VizInput = data['Adj Close']
-    #length = data.shape['Adj Close'][0]
-    #for i in range(0,)
-    return VizInput
+    viz= (data['Adj Close'])
+    length = data['Adj Close'].count()
+    for i in range(0,length):
+        allViz.append(viz)
+    return allViz
 
 def getArriaContent():
     null = None
