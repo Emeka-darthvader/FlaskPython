@@ -22,7 +22,7 @@ def getVisualizations():
 
     #print(data)
     #df.iloc[:, [True, False, True, False]]
-    viz= (data['Adj Close'])
+    viz= (data['Adj Close']).to_json()
     length = data['Adj Close'].count()
     for i in range(0,length):
         allViz.append(viz)
@@ -59,11 +59,12 @@ def index():
 def getViz():
     if (request.method == 'GET'):
         VizData = getVisualizations()
+        #VizData1 = json.dumps(VizData.to_json()
         return jsonify({'ViZValues': VizData})
 
 @app.route('/multi/<int:num>',methods=['GET'])
 def get_multiply10(num):
     return jsonify({'result': num*20})
 
-# if __name__ == '__main__':
-#     app.run(debug=True)
+#if __name__ == '__main__':
+#    app.run(debug=True)
