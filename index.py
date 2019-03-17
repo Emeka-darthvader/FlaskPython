@@ -15,10 +15,10 @@ yf.pdr_override()
 app = Flask(__name__)
 CORS(app)
 
-def getVisualizations():
+def getVisualizations(symbol):
     
     allViz = []
-    data = pdr.get_data_yahoo("SPY", start="2018-09-12", end="2019-03-16")
+    data = pdr.get_data_yahoo(symbol, start="2018-09-12", end="2019-03-16")
 
     #print(data)
     #df.iloc[:, [True, False, True, False]]
@@ -55,12 +55,31 @@ def index():
         resultant = getArriaContent()
         return jsonify({'ArriaText': resultant})
 
-@app.route('/getViz',methods=['GET'])
-def getViz():
+@app.route('/getBarclays',methods=['GET'])
+def getBarclays():
     if (request.method == 'GET'):
-        VizData = getVisualizations()
+        VizData = getVisualizations('BARC.L')
         #VizData1 = json.dumps(VizData.to_json()
-        return jsonify({'ViZValues': VizData})
+        return jsonify({'Barclay': VizData})
+
+@app.route('/getMicroFunds',methods=['GET'])
+def getgetMicroFunds():
+    if (request.method == 'GET'):
+        VizData = getVisualizations('MCRO.L')
+        #VizData1 = json.dumps(VizData.to_json()
+        return jsonify({'MicroFunds': VizData})
+@app.route('/getSSE',methods=['GET'])
+def getSSE():
+    if (request.method == 'GET'):
+        VizData = getVisualizations('SSE.L')
+        #VizData1 = json.dumps(VizData.to_json()
+        return jsonify({'SSE': VizData})
+@app.route('/getVodafone',methods=['GET'])
+def getVodafone():
+    if (request.method == 'GET'):
+        VizData = getVisualizations('VOD.L')
+        #VizData1 = json.dumps(VizData.to_json()
+        return jsonify({'Vodafone': VizData})
 
 @app.route('/multi/<int:num>',methods=['GET'])
 def get_multiply10(num):
