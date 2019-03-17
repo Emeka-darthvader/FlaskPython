@@ -55,6 +55,12 @@ def index():
         resultant = getArriaContent()
         return jsonify({'ArriaText': resultant})
 
+@app.route('/getFTSE',methods=['GET'])
+def getFTSE():
+    if (request.method == 'GET'):
+        VizData = getVisualizations('^FTSE')
+        #VizData1 = json.dumps(VizData.to_json()
+        return jsonify({'FTSE': VizData})
 @app.route('/getBarclays',methods=['GET'])
 def getBarclays():
     if (request.method == 'GET'):
