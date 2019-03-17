@@ -51,7 +51,7 @@ def index():
         return jsonify({'ArriaText': resultant})
 
 @app.route('/getViz',methods=['GET'])
-def index():
+def getViz():
     if (request.method == 'GET'):
         VizData = getVisualizations()
         return jsonify({'ViZValues': VizData})
