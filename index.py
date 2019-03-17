@@ -22,7 +22,7 @@ def getVisualizations(symbol):
 
     #print(data)
     #df.iloc[:, [True, False, True, False]]
-    viz= (data['Adj Close']).to_json()
+    viz= (data['Adj Close']).to_json(orient='records')
     length = data['Adj Close'].count()
     for i in range(0,length):
         allViz.append(viz)
